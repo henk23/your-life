@@ -23,21 +23,24 @@
   }
 </script>
 
-<div class={getClassNames()}
-     on:mouseenter={() => $currentWeek = week}
-     on:mouseleave={() => $currentWeek = null}/>
+<div class="week-wrapper" on:mouseenter={() => $currentWeek = week} on:mouseleave={() => $currentWeek = null}>
+  <div class={getClassNames()}/>
+</div>
 
 <style>
+  .week-wrapper {
+    padding: 0.1rem;
+  }
+
+  .week-wrapper:hover .week {
+    background: var(--green-dark);
+  }
+
   .week {
     border: 1px solid var(--black);
     width: 1rem;
     height: 1rem;
     border-radius: 50%;
-    margin: 0 0.1rem;
-  }
-
-  .week:hover {
-    background: var(--green-dark);
   }
 
   .is-past {
