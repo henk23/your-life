@@ -1,14 +1,22 @@
 <script>
-  import {stringify, generateYears} from './DateUtils';
+  import {generateYears, stringify, add} from './DateUtils';
+  import DobPicker from './DobPicker.svelte';
 
   let today = stringify(new Date());
-  let dateOfBirth = new Date('1986-11-23');
+  let dobString = localStorage.getItem('dobString') || '1970-01-01';
+  let dateOfBirth;
+  let allYears;
 
-  const allYears = generateYears(dateOfBirth);
+  $: {
+    dateOfBirth = new Date(dobString);
+    allYears = generateYears(dateOfBirth);
+  }
 </script>
 
 <main>
   <h1 class="title">YOUR LIFE</h1>
+
+  <DobPicker bind:dobString={dobString}/>
 
   <div class="life">
     <div class="year">
@@ -29,7 +37,7 @@
         {#each year.weeks as week}
           <div class="week"
                class:is-past={week.startDate < today}
-               class:is-now={week.startDate < today && week.endDate >= today}
+               class:is-now={week.startDate <= today && week.endDate >= today}
                title={`${week.startDate} to ${week.endDate}`}></div>
         {/each}
       </div>
