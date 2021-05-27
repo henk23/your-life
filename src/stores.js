@@ -9,7 +9,10 @@ export const categories = derived(timeSpans, $timeSpans => {
 
   for(let timeSpan of $timeSpans) {
     if(!categories.includes(timeSpan.category)) {
-      categories.push(timeSpan.category);
+      categories.push({
+        name: timeSpan.category,
+        isVisible: true,
+      });
     }
   }
 

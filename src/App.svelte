@@ -1,5 +1,5 @@
 <script>
-  import {timeSpans, categories, showStyles} from './stores';
+  import {timeSpans, showStyles} from './stores';
   import {generateYears} from './dateUtils';
   import DobPicker from './DobPicker.svelte';
   import WeekDot from './WeekDot.svelte';
@@ -12,16 +12,21 @@
   $: {
     dateOfBirth = new Date(dobString);
     allYears = generateYears(dateOfBirth);
+
+    for(let year of allYears) {
+      for(let week of year.weeks) {
+        week.matchedTimeSpans = [];
+        for(let timeSpan of $timeSpans) {
+          if(
+            week.startDate < timeSpan.endDate &&
+            week.endDate > timeSpan.startDate
+          ) {
+            week.matchedTimeSpans = [...week.matchedTimeSpans, timeSpan];
+          }
+        }
+      }
+    }
   }
-
-  $: console.log($timeSpans, $categories);
-
-  $timeSpans = [
-    ...$timeSpans,
-    {
-      category: 'Relationships',
-    },
-  ];
 </script>
 
 <main>

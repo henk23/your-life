@@ -6,6 +6,7 @@
   <div class="current-week-details">
     <div class="title">Year {$currentWeek.age}, Week {$currentWeek.weekNumber}</div>
     <div class="dates">{$currentWeek.startDate} - {$currentWeek.endDate}</div>
+    <div class="spans">{JSON.stringify($currentWeek.matchedTimeSpans)}</div>
   </div>
 {/if}
 

@@ -20,6 +20,10 @@
       }
     }
 
+    for(let timeSpan of week.matchedTimeSpans) {
+      classCollection.push(timeSpan.id);
+    }
+
     classNames = classCollection.join(' ');
   }
 </script>
@@ -34,7 +38,7 @@
   }
 
   .week-wrapper:hover .week {
-    background: var(--green-dark);
+    background: var(--red-dark) !important;
   }
 
   .week {
@@ -50,14 +54,18 @@
 
   @keyframes blinkNow {
     0%, 49% {
-      background: var(--green-light);
+      opacity: 1;
     }
     50%, 100% {
-      background: transparent;
+      opacity: 0;
     }
   }
 
   .is-now {
-    animation: blinkNow 1s infinite;
+    animation: blinkNow 2s infinite;
+  }
+
+  .bloop {
+    background: red !important;
   }
 </style>

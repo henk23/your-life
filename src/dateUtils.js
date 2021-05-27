@@ -52,6 +52,7 @@ export function generateYears(dateOfBirth) {
         age: y,
         startDate: stringify(startOfWeek),
         endDate: stringify(endOfWeek),
+        matchedTimeSpans: [],
       });
 
       weekIterator = add(weekIterator, 1, 'days');
