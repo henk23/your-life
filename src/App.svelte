@@ -3,6 +3,7 @@
   import {generateYears} from './DateUtils';
   import DobPicker from './DobPicker.svelte';
   import WeekDot from './WeekDot.svelte';
+  import CurrentWeekDetails from './CurrentWeekDetails.svelte';
 
   let dobString = localStorage.getItem('dobString') || '1970-01-01';
   let dateOfBirth;
@@ -52,48 +53,50 @@
   </div>
 </main>
 
+<CurrentWeekDetails/>
+
 <style>
-    main {
-        text-align: center;
-        padding: 1em;
-        margin: 0 auto;
-        font-size: 0.7rem;
-    }
+  main {
+    text-align: center;
+    padding: 1em;
+    margin: 0 auto;
+    font-size: 0.7rem;
+  }
 
-    .title {
-        text-transform: uppercase;
-        font-size: 4em;
-        font-weight: 100;
-    }
+  .title {
+    text-transform: uppercase;
+    font-size: 4em;
+    font-weight: 100;
+  }
 
-    .life {
-        display: inline-block;
-        margin: 0 2rem 2rem 0;
-        font-family: monospace;
-    }
+  .life {
+    display: inline-block;
+    margin: 0 2rem 2rem 0;
+    font-family: monospace;
+  }
 
-    .label {
-        height: 1rem;
-        border: 1px solid transparent;
-    }
+  .label {
+    height: 1rem;
+    border: 1px solid transparent;
+  }
 
-    .year-label {
-        width: 2.5rem;
-        margin: 0 0.5rem 0 0;
-        text-align: right;
-        line-height: 1rem;
-    }
+  .year-label {
+    width: 2.5rem;
+    margin: 0 0.5rem 0 0;
+    text-align: right;
+    line-height: 1rem;
+  }
 
-    .week-label {
-        width: 1rem;
-        margin: 0 0.1rem;
-        text-align: center;
-    }
+  .week-label {
+    width: 1rem;
+    margin: 0 0.1rem;
+    text-align: center;
+  }
 
-    .year {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0.2rem 0;
-    }
+  .year {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0.2rem 0;
+  }
 </style>

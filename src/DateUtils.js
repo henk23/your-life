@@ -49,6 +49,7 @@ export function generateYears(dateOfBirth) {
 
       allWeeks.push({
         weekNumber: w,
+        age: y,
         startDate: stringify(startOfWeek),
         endDate: stringify(endOfWeek),
       });

@@ -1,5 +1,7 @@
 import {writable, derived} from 'svelte/store';
 
+export const currentWeek = writable(null);
+
 export const timeSpans = writable([]);
 
 export const categories = derived(timeSpans, $timeSpans => {

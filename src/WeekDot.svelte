@@ -1,4 +1,5 @@
 <script>
+  import {currentWeek} from './stores';
   import {stringify} from './DateUtils';
 
   export let week;
@@ -22,7 +23,9 @@
   }
 </script>
 
-<div class={getClassNames()} title={`${week.startDate} to ${week.endDate}`}></div>
+<div class={getClassNames()}
+     on:mouseenter={() => $currentWeek = week}
+     on:mouseleave={() => $currentWeek = null}/>
 
 <style>
   .week {
