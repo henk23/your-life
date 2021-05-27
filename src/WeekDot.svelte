@@ -2,7 +2,6 @@
   import {stringify} from './DateUtils';
 
   export let week;
-
   let today = stringify(new Date());
 
   const classMap = {

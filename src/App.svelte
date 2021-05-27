@@ -1,4 +1,5 @@
 <script>
+  import {timeSpans, categories} from './stores';
   import {generateYears} from './DateUtils';
   import DobPicker from './DobPicker.svelte';
   import WeekDot from './WeekDot.svelte';
@@ -11,6 +12,15 @@
     dateOfBirth = new Date(dobString);
     allYears = generateYears(dateOfBirth);
   }
+
+  $: console.log($timeSpans, $categories);
+
+  $timeSpans = [
+    ...$timeSpans,
+    {
+      category: 'Relationships',
+    },
+  ];
 </script>
 
 <main>
