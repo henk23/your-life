@@ -1,6 +1,6 @@
 <script>
   import {timeSpans, categories, showStyles} from './stores';
-  import {generateYears} from './DateUtils';
+  import {generateYears} from './dateUtils';
   import DobPicker from './DobPicker.svelte';
   import WeekDot from './WeekDot.svelte';
   import CurrentWeekDetails from './CurrentWeekDetails.svelte';

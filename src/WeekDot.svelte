@@ -1,6 +1,6 @@
 <script>
-  import {currentWeek, showStyles} from './stores';
-  import {stringify} from './DateUtils';
+  import {currentWeek, showStyles, timeSpans} from './stores';
+  import {stringify} from './dateUtils';
 
   export let week;
   let today = stringify(new Date());

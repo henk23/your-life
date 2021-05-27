@@ -1,5 +1,5 @@
 <script>
-  import {add} from './DateUtils';
+  import {add} from './dateUtils';
 
   export let dobString;
 
