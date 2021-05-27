@@ -65,7 +65,9 @@
           {year.age}
         </div>
         {#each year.weeks as week}
-          <div class="week" class:is-past={week.startDate < stringify(today)}
+          <div class="week"
+               class:is-past={week.startDate < stringify(today)}
+               class:is-now={week.startDate < stringify(today) && week.endDate >= stringify(today)}
                title={`${week.startDate} to ${week.endDate}`}></div>
         {/each}
       </div>
@@ -119,7 +121,7 @@
     }
 
     .week {
-        border: 1px solid black;
+        border: 1px solid var(--black);
         width: 1rem;
         height: 1rem;
         border-radius: 50%;
@@ -127,10 +129,23 @@
     }
 
     .week:hover {
-        background: #999999 !important;
+        background: var(--green-dark);
     }
 
     .is-past {
-        background: #7bc1ff;
+        background: var(--green-light);
+    }
+
+    @keyframes blinkNow {
+        0%, 49% {
+            background: var(--green-light);
+        }
+        50%, 100% {
+            background: transparent;
+        }
+    }
+
+    .is-now {
+        animation: blinkNow 1s infinite;
     }
 </style>
