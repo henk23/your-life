@@ -1,7 +1,7 @@
 <script>
   import {stringify, generateYears} from './DateUtils';
 
-  let today = new Date();
+  let today = stringify(new Date());
   let dateOfBirth = new Date('1986-11-23');
 
   const allYears = generateYears(dateOfBirth);
@@ -28,8 +28,8 @@
         </div>
         {#each year.weeks as week}
           <div class="week"
-               class:is-past={week.startDate < stringify(today)}
-               class:is-now={week.startDate < stringify(today) && week.endDate >= stringify(today)}
+               class:is-past={week.startDate < today}
+               class:is-now={week.startDate < today && week.endDate >= today}
                title={`${week.startDate} to ${week.endDate}`}></div>
         {/each}
       </div>
