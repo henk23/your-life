@@ -1,48 +1,10 @@
 <script>
-  import {clone, add, stringify} from './DateUtils';
+  import {stringify, generateYears} from './DateUtils';
 
   let today = new Date();
   let dateOfBirth = new Date('1986-11-23');
-  let yearIterator = clone(dateOfBirth);
-  let allYears = [];
 
-  for(let y = 0; y < 100; y++) {
-    let startOfYear = yearIterator;
-    let endOfYear = add(add(startOfYear, 1, 'years'), -1, 'days');
-
-    let weekIterator = clone(startOfYear);
-    const allWeeks = [];
-
-    for(let w = 1; w <= 52; w++) {
-      let startOfWeek = weekIterator;
-
-      weekIterator = add(weekIterator, 6, 'days');
-      let endOfWeek = weekIterator;
-
-      while(w === 52 && stringify(endOfWeek) < stringify(endOfYear)) {
-        weekIterator = add(weekIterator, 1, 'days');
-        endOfWeek = weekIterator;
-      }
-
-      allWeeks.push({
-        weekNumber: w,
-        startDate: stringify(startOfWeek),
-        endDate: stringify(endOfWeek),
-      });
-
-      weekIterator = add(weekIterator, 1, 'days');
-    }
-
-    allYears.push({
-      year: yearIterator.getFullYear(),
-      age: y,
-      startDate: stringify(startOfYear),
-      endDate: stringify(endOfYear),
-      weeks: allWeeks,
-    });
-
-    yearIterator = add(yearIterator, 1, 'years');
-  }
+  const allYears = generateYears(dateOfBirth);
 </script>
 
 <main>
@@ -91,7 +53,7 @@
 
     .life {
         display: inline-block;
-        margin: 0 auto 3rem;
+        margin: 0 2rem 2rem 0;
         font-family: monospace;
     }
 
