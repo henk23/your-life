@@ -1,8 +1,8 @@
 <script>
-  import {generateYears, stringify, add} from './DateUtils';
+  import {generateYears} from './DateUtils';
   import DobPicker from './DobPicker.svelte';
+  import WeekDot from './WeekDot.svelte';
 
-  let today = stringify(new Date());
   let dobString = localStorage.getItem('dobString') || '1970-01-01';
   let dateOfBirth;
   let allYears;
@@ -35,10 +35,7 @@
           {year.age}
         </div>
         {#each year.weeks as week}
-          <div class="week"
-               class:is-past={week.startDate < today}
-               class:is-now={week.startDate <= today && week.endDate >= today}
-               title={`${week.startDate} to ${week.endDate}`}></div>
+          <WeekDot week={week}/>
         {/each}
       </div>
     {/each}
@@ -88,34 +85,5 @@
         align-items: center;
         justify-content: center;
         margin: 0.2rem 0;
-    }
-
-    .week {
-        border: 1px solid var(--black);
-        width: 1rem;
-        height: 1rem;
-        border-radius: 50%;
-        margin: 0 0.1rem;
-    }
-
-    .week:hover {
-        background: var(--green-dark);
-    }
-
-    .is-past {
-        background: var(--green-light);
-    }
-
-    @keyframes blinkNow {
-        0%, 49% {
-            background: var(--green-light);
-        }
-        50%, 100% {
-            background: transparent;
-        }
-    }
-
-    .is-now {
-        animation: blinkNow 1s infinite;
     }
 </style>
