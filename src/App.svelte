@@ -1,5 +1,5 @@
 <script>
-  import {timeSpans, categories} from './stores';
+  import {timeSpans, categories, showStyles} from './stores';
   import {generateYears} from './DateUtils';
   import DobPicker from './DobPicker.svelte';
   import WeekDot from './WeekDot.svelte';
@@ -26,6 +26,11 @@
 
 <main>
   <h1 class="title">YOUR LIFE</h1>
+
+  <div>
+    <input type="checkbox" bind:checked={$showStyles.past}> Show past
+    <input type="checkbox" bind:checked={$showStyles.now}> Show now
+  </div>
 
   <DobPicker bind:dobString={dobString}/>
 

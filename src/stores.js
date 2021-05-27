@@ -15,3 +15,8 @@ export const categories = derived(timeSpans, $timeSpans => {
 
   return categories;
 });
+
+export const showStyles = writable({
+  past: true,
+  now: true,
+});

@@ -1,30 +1,31 @@
 <script>
-  import {currentWeek} from './stores';
+  import {currentWeek, showStyles} from './stores';
   import {stringify} from './DateUtils';
 
   export let week;
   let today = stringify(new Date());
+  let classNames;
 
-  const classMap = {
-    'is-past': () => week.startDate < today,
-    'is-now': () => week.startDate <= today && week.endDate >= today,
-  };
+  $: {
+    const classMap = {
+      'is-past': $showStyles.past && week.endDate < today,
+      'is-now': $showStyles.now && week.startDate <= today && week.endDate >= today,
+    };
 
-  function getClassNames() {
-    let classNames = ['week'];
+    let classCollection = ['week'];
 
     for(let className in classMap) {
-      if(classMap[className]()) {
-        classNames.push(className);
+      if(classMap[className]) {
+        classCollection.push(className);
       }
     }
 
-    return classNames.join(' ');
+    classNames = classCollection.join(' ');
   }
 </script>
 
 <div class="week-wrapper" on:mouseenter={() => $currentWeek = week} on:mouseleave={() => $currentWeek = null}>
-  <div class={getClassNames()}/>
+  <div class={classNames}/>
 </div>
 
 <style>

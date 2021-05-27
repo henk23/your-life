@@ -46,6 +46,6 @@
 
 <style>
     .dob-picker {
-        margin-bottom: 2rem;
+        margin: 2rem 0;
     }
 </style>
