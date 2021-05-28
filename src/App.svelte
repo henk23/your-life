@@ -1,6 +1,6 @@
 <script>
   import {timeSpans, showStyles} from './stores';
-  import {generateYears} from './dateUtils';
+  import {generateYears, stringify} from './dateUtils';
   import DobPicker from './DobPicker.svelte';
   import WeekDot from './WeekDot.svelte';
   import CurrentWeekDetails from './CurrentWeekDetails.svelte';
@@ -18,7 +18,7 @@
         week.matchedTimeSpans = [];
         for(let timeSpan of $timeSpans) {
           if(
-            week.startDate < timeSpan.endDate &&
+            week.startDate < (timeSpan.endDate === 'ongoing' ? stringify(new Date()) : timeSpan.endDate) &&
             week.endDate > timeSpan.startDate
           ) {
             week.matchedTimeSpans = [...week.matchedTimeSpans, timeSpan];
