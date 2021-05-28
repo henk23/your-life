@@ -1,11 +1,12 @@
 <script>
-  import {timeSpans, showStyles} from './stores';
+  import {appMode, timeSpans, showStyles} from './stores';
   import {generateYears, stringify} from './dateUtils';
   import DobPicker from './DobPicker.svelte';
   import WeekDot from './WeekDot.svelte';
   import CurrentWeekDetails from './CurrentWeekDetails.svelte';
+  import CreateTimeSpan from './CreateTimeSpan.svelte';
 
-  let dobString = localStorage.getItem('dobString') || '1970-01-01';
+  let dobString = localStorage.getItem('dobString');
   let dateOfBirth;
   let allYears;
 
@@ -39,6 +40,10 @@
 
   <DobPicker bind:dobString={dobString}/>
 
+  <div>
+    <button on:click={() => $appMode = 'create-time-span'}>Create time span</button>
+  </div>
+
   <div class="life">
     <div class="year">
       <div class="year-label">&nbsp;</div>
@@ -65,6 +70,10 @@
 
 <CurrentWeekDetails/>
 
+{#if $appMode === 'create-time-span'}
+  <CreateTimeSpan/>
+{/if}
+
 <style>
   main {
     text-align: center;
@@ -81,7 +90,7 @@
 
   .life {
     display: inline-block;
-    margin: 0 2rem 2rem 0;
+    margin: 2rem 2rem 2rem 0;
     font-family: monospace;
   }
 

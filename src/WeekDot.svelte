@@ -1,5 +1,5 @@
 <script>
-  import {currentWeek, showStyles, timeSpans} from './stores';
+  import {currentWeek, showStyles, timeSpans, eventBus} from './stores';
   import {stringify} from './dateUtils';
 
   export let week;
@@ -28,7 +28,9 @@
   }
 </script>
 
-<div class="week-wrapper" on:mouseenter={() => $currentWeek = week} on:mouseleave={() => $currentWeek = null}>
+<div class="week-wrapper"
+     on:mouseenter={() => $currentWeek = week} on:mouseleave={() => $currentWeek = null}
+     on:click={() => eventBus.dispatch('click', week)}>
   <div class={classNames}/>
 </div>
 
