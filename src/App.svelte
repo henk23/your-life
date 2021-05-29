@@ -1,12 +1,13 @@
 <script>
   import {appMode, timeSpans, showStyles} from './stores';
   import {generateYears, stringify} from './dateUtils';
+  import {load} from './storageService';
   import DobPicker from './DobPicker.svelte';
   import WeekDot from './WeekDot.svelte';
   import CurrentWeekDetails from './CurrentWeekDetails.svelte';
   import CreateTimeSpan from './CreateTimeSpan.svelte';
 
-  let dobString = localStorage.getItem('dobString');
+  let dobString = load('dobString');
   let dateOfBirth;
   let allYears;
 

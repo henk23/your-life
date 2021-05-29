@@ -1,25 +1,29 @@
 <script>
-  import {newTimeSpan, eventBus} from './stores';
+  import {newTimeSpan, clickedWeek} from './stores';
 
   let step = 'start';
+  let nameInput;
 
-  eventBus.subscribe(event => {
+  clickedWeek.subscribe(week => {
+    if(!week) {
+      return;
+    }
 
-    if(step === 'start' && event.details) {
-      $newTimeSpan.start = event.details.startDate;
+    if(step === 'start') {
+      $newTimeSpan.startDate = week.startDate;
       step = 'end';
       return;
     }
 
-    if(step === 'end' && event.details) {
-      $newTimeSpan.end = event.details.endDate;
+    if(step === 'end') {
+      $newTimeSpan.endDate = week.endDate;
       step = 'name';
-      return;
+      nameInput.focus();
     }
   });
 
   function createTimeSpan() {
-    console.log('cTS', $newTimeSpan);
+    console.log('TODO:', $newTimeSpan);
   }
 </script>
 
@@ -27,21 +31,21 @@
   <div class="title">Create time span</div>
 
   <div class="step" class:is-active={step === 'start'}>
-    <p>1. Pick a start from the calendar: {$newTimeSpan.start}</p>
+    <p>1. Pick a start from the calendar: {$newTimeSpan.startDate}</p>
   </div>
 
   <div class="step" class:is-active={step === 'end'}>
     <p>
-      2. Pick an end from the calendar: {$newTimeSpan.end}<br>
+      2. Pick an end from the calendar: {$newTimeSpan.endDate}<br>
       or choose
-      <button on:click={() => $newTimeSpan.end = 'ongoing'}>ongoing</button>
+      <button on:click={() => $clickedWeek = {endDate: 'ongoing'}}>ongoing</button>
     </p>
   </div>
 
   <div class="step" class:is-active={step === 'name'}>
-    <p>3. Pick a name: <input bind:value={$newTimeSpan.name}></p>
-    <p>4. Pick an category: <input bind:value={$newTimeSpan.category}></p>
-    <button on:click={createTimeSpan}>Create time span</button>
+    <p>3. Pick a name: <input bind:value={$newTimeSpan.name} bind:this={nameInput}></p>
+    <p>4. Pick a category: <input bind:value={$newTimeSpan.category}></p>
+    <button on:click={createTimeSpan} disabled={!$newTimeSpan.name || !$newTimeSpan.category}>Create time span</button>
   </div>
 </div>
 

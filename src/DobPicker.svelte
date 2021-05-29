@@ -1,5 +1,6 @@
 <script>
   import {add} from './dateUtils';
+  import {save} from './storageService';
 
   export let dobString;
 
@@ -19,7 +20,7 @@
       dobString = `${birthyear}-${birthmonth}-${birthday}`;
     }
 
-    localStorage.setItem('dobString', dobString);
+    save('dobString', dobString);
   }
 </script>
 

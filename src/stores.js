@@ -5,6 +5,8 @@ export const appMode = writable('default');
 
 export const currentWeek = writable(null);
 
+export const clickedWeek = writable(null);
+
 export const timeSpans = writable([]);
 
 export const categories = derived(timeSpans, $timeSpans => {
@@ -28,24 +30,9 @@ export const showStyles = writable({
 });
 
 export const newTimeSpan = writable({
-  start: null,
-  end: null,
+  startDate: null,
+  endDate: null,
   name: '',
   category: '',
+  style: {},
 });
-
-function createEventBus() {
-  const {subscribe, set} = writable({
-    name: null,
-    details: null,
-  });
-
-  return {
-    subscribe,
-    dispatch: (name, details) => {
-      set({name, details});
-    },
-  };
-}
-
-export const eventBus = createEventBus();
