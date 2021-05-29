@@ -4,9 +4,18 @@
 
 {#if $currentWeek}
   <div class="current-week-details">
-    <div class="title">Year {$currentWeek.age}, Week {$currentWeek.weekNumber}</div>
-    <div class="dates">{$currentWeek.startDate} - {$currentWeek.endDate}</div>
-    <div class="spans">{JSON.stringify($currentWeek.matchedTimeSpans)}</div>
+    <strong>Year {$currentWeek.age}, Week {$currentWeek.weekNumber}</strong><br>
+    {$currentWeek.startDate} - {$currentWeek.endDate}
+
+    {#if $currentWeek.matchedTimeSpans?.length}
+      <hr class="spacer">
+      {#each $currentWeek.matchedTimeSpans as timeSpan}
+        <p class="span">
+          <strong>{timeSpan.name} ({timeSpan.category})</strong><br>
+          {timeSpan.startDate} - {timeSpan.endDate}
+        </p>
+      {/each}
+    {/if}
   </div>
 {/if}
 
@@ -18,17 +27,18 @@
     border: 1px solid var(--black);
     padding: 1rem;
     min-width: 12rem;
-    background: white;
+    font-size: 0.8rem;
+    background: var(--white);
     border-radius: 0.5rem;
     box-shadow: 0 0 2px 0 var(--black);
   }
 
-  .title {
-    font-size: 0.8rem;
-    font-weight: bold;
+  .spacer {
+    margin: 1rem 0;
   }
 
-  .dates {
-    font-size: 0.8rem;
+  .span {
+    margin-top: 1rem;
+    margin-bottom: 0;
   }
 </style>
