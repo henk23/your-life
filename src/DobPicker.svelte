@@ -1,26 +1,25 @@
 <script>
+  import {dobString} from './stores';
   import {add} from './dateUtils';
   import {save} from './storageService';
 
-  export let dobString;
-
   let startYear = add(new Date(), -100, 'years').getFullYear();
 
-  let birthyear = dobString.substr(0, 4);
-  let birthmonth = dobString.substr(5, 2);
-  let birthday = dobString.substr(8, 2);
+  let birthyear = $dobString.substr(0, 4);
+  let birthmonth = $dobString.substr(5, 2);
+  let birthday = $dobString.substr(8, 2);
 
   $: {
-    dobString = `${birthyear}-${birthmonth}-${birthday}`;
+    $dobString = `${birthyear}-${birthmonth}-${birthday}`;
 
     // Check for valid date
-    const date = new Date(dobString);
+    const date = new Date($dobString);
     if(isNaN(date.getTime())) {
       birthday = '28';
-      dobString = `${birthyear}-${birthmonth}-${birthday}`;
+      $dobString = `${birthyear}-${birthmonth}-${birthday}`;
     }
 
-    save('dateOfBirth', dobString);
+    save('dateOfBirth', $dobString);
   }
 </script>
 
