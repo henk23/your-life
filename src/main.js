@@ -1,8 +1,8 @@
 import App from './App.svelte';
 import {load, save} from './storageService';
 
-if(!load('dobString')) {
-  save('dobString', '1970-01-01');
+if(!load('dateOfBirth')) {
+  save('dateOfBirth', '1970-01-01');
 }
 
 const app = new App({

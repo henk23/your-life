@@ -7,7 +7,7 @@
   import CurrentWeekDetails from './CurrentWeekDetails.svelte';
   import CreateTimeSpan from './CreateTimeSpan.svelte';
 
-  let dobString = load('dobString');
+  let dobString = load('dateOfBirth');
   let dateOfBirth;
   let allYears;
 

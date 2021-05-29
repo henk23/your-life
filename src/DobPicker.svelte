@@ -20,7 +20,7 @@
       dobString = `${birthyear}-${birthmonth}-${birthday}`;
     }
 
-    save('dobString', dobString);
+    save('dateOfBirth', dobString);
   }
 </script>
 

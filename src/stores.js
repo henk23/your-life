@@ -1,5 +1,5 @@
 import {writable, derived} from 'svelte/store';
-import {getRandomId} from './utils';
+import {load} from './storageService';
 
 export const appMode = writable('default');
 
@@ -7,7 +7,7 @@ export const currentWeek = writable(null);
 
 export const clickedWeek = writable(null);
 
-export const timeSpans = writable([]);
+export const timeSpans = writable(load('timeSpans') || []);
 
 export const categories = derived(timeSpans, $timeSpans => {
   const categories = [];

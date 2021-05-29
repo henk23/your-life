@@ -1,8 +1,11 @@
 <script>
-  import {newTimeSpan, clickedWeek} from './stores';
+  import {appMode, timeSpans, newTimeSpan, clickedWeek} from './stores';
+  import {save} from './storageService';
 
   let step = 'start';
   let nameInput;
+
+  $clickedWeek = null;
 
   clickedWeek.subscribe(week => {
     if(!week) {
@@ -23,7 +26,14 @@
   });
 
   function createTimeSpan() {
-    console.log('TODO:', $newTimeSpan);
+    $timeSpans = [
+      ...$timeSpans,
+      $newTimeSpan,
+    ];
+
+    save('timeSpans', $timeSpans);
+
+    $appMode = 'default';
   }
 </script>
 
@@ -31,20 +41,27 @@
   <div class="title">Create time span</div>
 
   <div class="step" class:is-active={step === 'start'}>
-    <p>1. Pick a start from the calendar: {$newTimeSpan.startDate}</p>
+    {#if !$newTimeSpan.startDate}
+      <p>1. Pick a start date from the calendar</p>
+    {:else}
+      <p>1. Start: {$newTimeSpan.startDate}</p>
+    {/if}
   </div>
 
   <div class="step" class:is-active={step === 'end'}>
     <p>
-      2. Pick an end from the calendar: {$newTimeSpan.endDate}<br>
-      or choose
-      <button on:click={() => $clickedWeek = {endDate: 'ongoing'}}>ongoing</button>
+      {#if !$newTimeSpan.endDate}
+        2. Pick an end date or click
+        <button on:click={() => $clickedWeek = {endDate: 'ongoing'}}>ongoing</button>
+      {:else}
+        2. End: {$newTimeSpan.endDate}
+      {/if}
     </p>
   </div>
 
   <div class="step" class:is-active={step === 'name'}>
-    <p>3. Pick a name: <input bind:value={$newTimeSpan.name} bind:this={nameInput}></p>
-    <p>4. Pick a category: <input bind:value={$newTimeSpan.category}></p>
+    <p>3. Name: <input bind:value={$newTimeSpan.name} bind:this={nameInput}></p>
+    <p>4. Category: <input bind:value={$newTimeSpan.category}></p>
     <button on:click={createTimeSpan} disabled={!$newTimeSpan.name || !$newTimeSpan.category}>Create time span</button>
   </div>
 </div>
