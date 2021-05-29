@@ -1,5 +1,5 @@
 <script>
-  import {currentWeek, showStyles, clickedWeek} from './stores';
+  import {appMode, currentWeek, showStyles, clickedWeek, newTimeSpan} from './stores';
   import {stringify} from './dateUtils';
 
   export let week;
@@ -8,8 +8,9 @@
 
   $: {
     const classMap = {
-      'is-past': $showStyles.past && week.endDate < today,
-      'is-now': $showStyles.now && week.startDate <= today && week.endDate >= today,
+      'is-past': $appMode === 'default' && $showStyles.past && week.endDate < today,
+      'is-now': $appMode === 'default' && $showStyles.now && week.startDate <= today && week.endDate >= today,
+      'is-marked': $appMode === 'create-time-span' && $newTimeSpan.startDate && ($newTimeSpan.endDate ? week.startDate < $newTimeSpan.endDate : $currentWeek && week.startDate < $currentWeek.endDate) && week.endDate > $newTimeSpan.startDate
     };
 
     let classCollection = ['week'];
@@ -67,7 +68,7 @@
     animation: blinkNow 2s infinite;
   }
 
-  .bloop {
-    background: red !important;
+  .is-marked {
+    background: #00c3ff !important;
   }
 </style>
