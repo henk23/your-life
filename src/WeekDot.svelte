@@ -6,14 +6,43 @@
   let today = stringify(new Date());
   let classNames;
 
+  function isMarked(newTimeSpan, currentWeek) {
+
+    // Mark only once the start date was clicked.
+    if(!newTimeSpan.startDate) {
+      return false;
+    }
+
+    let endDateCondition;
+
+    // Mark all hovered until end date is clicked
+    if(!newTimeSpan.endDate) {
+      endDateCondition = currentWeek && week.startDate < currentWeek.endDate;
+    } else {
+      endDateCondition = week.startDate < newTimeSpan.endDate;
+    }
+
+    return endDateCondition && week.endDate > newTimeSpan.startDate;
+  }
+
+  function isDisabled(newTimeSpan) {
+    if(!newTimeSpan.startDate) {
+      return false;
+    }
+
+    return week.endDate < newTimeSpan.startDate;
+  }
+
   $: {
     const classMap = {
-      'is-past': $appMode === 'default' && $showStyles.past && week.endDate < today,
+      'is-past': $appMode === 'default' && $showStyles.past && week.endDate <= today,
       'is-now': $appMode === 'default' && $showStyles.now && week.startDate <= today && week.endDate >= today,
-      'is-marked': $appMode === 'create-time-span' && $newTimeSpan.startDate && ($newTimeSpan.endDate ? week.startDate < $newTimeSpan.endDate : $currentWeek && week.startDate < $currentWeek.endDate) && week.endDate > $newTimeSpan.startDate
+      'is-hovered': $currentWeek && week.startDate <= $currentWeek.endDate && week.endDate >= $currentWeek.startDate,
+      'is-marked': $appMode === 'create-time-span' && isMarked($newTimeSpan, $currentWeek),
+      'is-disabled': $appMode === 'create-time-span' && isDisabled($newTimeSpan),
     };
 
-    let classCollection = ['week'];
+    let classCollection = ['week-wrapper'];
 
     for(let className in classMap) {
       if(classMap[className]) {
@@ -29,19 +58,15 @@
   }
 </script>
 
-<div class="week-wrapper"
+<div class={classNames}
      on:mouseenter={() => $currentWeek = week} on:mouseleave={() => $currentWeek = null}
      on:click={() => $clickedWeek = week}>
-  <div class={classNames}/>
+  <div class="week"/>
 </div>
 
 <style>
   .week-wrapper {
     padding: 0.1rem;
-  }
-
-  .week-wrapper:hover .week {
-    background: var(--red-dark) !important;
   }
 
   .week {
@@ -51,7 +76,7 @@
     border-radius: 50%;
   }
 
-  .is-past {
+  .is-past .week {
     background: var(--green-light);
   }
 
@@ -64,11 +89,21 @@
     }
   }
 
-  .is-now {
+  .is-now .week {
     animation: blinkNow 2s infinite;
   }
 
-  .is-marked {
+  .is-marked .week {
+    background: #00c3ff;
+  }
+
+  .is-hovered .week {
     background: #00c3ff !important;
+  }
+
+  .is-disabled {
+    pointer-events: none;
+    opacity: 0.5;
+    cursor: not-allowed;
   }
 </style>
