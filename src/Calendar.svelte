@@ -6,16 +6,20 @@
   let dateOfBirth;
   let allYears;
 
+  let today = stringify(new Date());
+
   $: {
     dateOfBirth = new Date($dobString);
     allYears = generateYears(dateOfBirth);
+  }
 
-    for(let year of allYears) {
-      for(let week of year.weeks) {
-        week.matchedTimeSpans = [];
-        for(let timeSpan of $timeSpans) {
+  $: {
+    for(let timeSpan of $timeSpans) {
+      for(let year of allYears) {
+        for(let week of year.weeks) {
+          week.matchedTimeSpans = [];
           if(
-            week.startDate < (timeSpan.endDate === 'ongoing' ? stringify(new Date()) : timeSpan.endDate) &&
+            week.startDate < (timeSpan.endDate === 'ongoing' ? today : timeSpan.endDate) &&
             week.endDate > timeSpan.startDate
           ) {
             week.matchedTimeSpans = [...week.matchedTimeSpans, timeSpan];
