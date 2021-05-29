@@ -6,10 +6,10 @@
   let today = stringify(new Date());
   let classNames;
 
-  function isMarked(newTimeSpan, currentWeek) {
+  function isMarked(appMode, newTimeSpan, currentWeek) {
 
     // Mark only once the start date was clicked.
-    if(!newTimeSpan.startDate) {
+    if(appMode !== 'create-time-span' || !newTimeSpan.startDate) {
       return false;
     }
 
@@ -25,8 +25,8 @@
     return endDateCondition && week.endDate > newTimeSpan.startDate;
   }
 
-  function isDisabled(newTimeSpan) {
-    if(!newTimeSpan.startDate) {
+  function isDisabled(appMode, newTimeSpan) {
+    if(appMode !== 'create-time-span' || !newTimeSpan.startDate || newTimeSpan.endDate) {
       return false;
     }
 
@@ -38,8 +38,8 @@
       'is-past': $appMode === 'default' && $showStyles.past && week.endDate <= today,
       'is-now': $appMode === 'default' && $showStyles.now && week.startDate <= today && week.endDate >= today,
       'is-hovered': $currentWeek && week.startDate <= $currentWeek.endDate && week.endDate >= $currentWeek.startDate,
-      'is-marked': $appMode === 'create-time-span' && isMarked($newTimeSpan, $currentWeek),
-      'is-disabled': $appMode === 'create-time-span' && isDisabled($newTimeSpan),
+      'is-marked': isMarked($appMode, $newTimeSpan, $currentWeek),
+      'is-disabled': isDisabled($appMode, $newTimeSpan),
     };
 
     let classCollection = ['week-wrapper'];
