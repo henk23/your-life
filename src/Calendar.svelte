@@ -14,10 +14,10 @@
   }
 
   $: {
-    for(let timeSpan of $timeSpans) {
-      for(let year of allYears) {
-        for(let week of year.weeks) {
-          week.matchedTimeSpans = [];
+    for(let year of allYears) {
+      for(let week of year.weeks) {
+        week.matchedTimeSpans = [];
+        for(let timeSpan of $timeSpans) {
           if(
             week.startDate < (timeSpan.endDate === 'ongoing' ? today : timeSpan.endDate) &&
             week.endDate > timeSpan.startDate
