@@ -1,13 +1,17 @@
 <script>
-  import {appMode, timeSpans, newTimeSpan, clickedWeek} from './stores';
+  import {tick, onDestroy} from 'svelte';
+  import {appMode, timeSpans, categories, newTimeSpan, clickedWeek} from './stores';
   import {save} from './storageService';
 
   let step = 'start';
   let nameInput;
+  let catInput;
+  let categoryInputType = 'select';
 
   $clickedWeek = null;
+  $newTimeSpan.category = $categories[0].name;
 
-  clickedWeek.subscribe(week => {
+  const unsubscribeClickedWeek = clickedWeek.subscribe(week => {
     if(!week) {
       return;
     }
@@ -25,6 +29,8 @@
     }
   });
 
+  onDestroy(unsubscribeClickedWeek);
+
   function createTimeSpan() {
     $timeSpans = [
       ...$timeSpans,
@@ -34,6 +40,17 @@
     save('timeSpans', $timeSpans);
 
     $appMode = 'default';
+  }
+
+  async function handleCategoryChange(event) {
+    if(event.target.value === '$$createNew') {
+      $newTimeSpan.category = '';
+      categoryInputType = 'input';
+      await tick();
+      catInput.focus();
+    } else {
+      $newTimeSpan.category = event.target.value;
+    }
   }
 </script>
 
@@ -60,9 +77,25 @@
   </div>
 
   <div class="step" class:is-active={step === 'name'}>
-    <p>3. Name: <input bind:value={$newTimeSpan.name} bind:this={nameInput}></p>
-    <p>4. Category: <input bind:value={$newTimeSpan.category}></p>
-    <button on:click={createTimeSpan} disabled={!$newTimeSpan.name || !$newTimeSpan.category}>Create time span</button>
+    <p>
+      3. Name: <input bind:value={$newTimeSpan.name} bind:this={nameInput}>
+    </p>
+    <p>
+      4. Category:
+      {#if categoryInputType === 'select'}
+        <select on:blur={handleCategoryChange}>
+          {#each $categories as category}
+            <option>{category.name}</option>
+          {/each}
+          <option value="$$createNew">Create new category...</option>
+        </select>
+      {:else}
+        <input bind:value={$newTimeSpan.category} bind:this={catInput}>
+      {/if}
+    </p>
+    <button on:click={createTimeSpan} disabled={!$newTimeSpan.name || !$newTimeSpan.category}>
+      Create time span
+    </button>
   </div>
 </div>
 
