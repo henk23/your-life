@@ -12,21 +12,15 @@ export const categories = derived(timeSpans, $timeSpans => {
 
   for(let timeSpan of $timeSpans) {
     if(!categories.includes(timeSpan.category)) {
-      categories.push({
-        name: timeSpan.category,
-        isVisible: true,
-      });
+      categories.push(timeSpan.category);
     }
   }
 
   if(!categories.length) {
-    categories.push({
-      name: 'Default',
-      isVisible: true,
-    });
+    categories.push('Default');
   }
 
-  return categories;
+  return [...new Set(categories)];
 });
 
 export const showStyles = writable({

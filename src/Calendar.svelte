@@ -73,9 +73,10 @@
   }
 
   .week-label {
-    width: 1rem;
+    width: 1.2rem;
     margin: 0 0.1rem;
     text-align: center;
+    box-sizing: border-box;
   }
 
   .year {

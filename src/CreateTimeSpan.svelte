@@ -13,8 +13,12 @@
     startDate: null,
     endDate: null,
     name: '',
-    category: $categories[0].name,
-    style: {},
+    category: $categories[0],
+    style: {
+      backgroundColor: '#00c3ff',
+      borderColor: '#333333',
+      borderWidth: 1,
+    },
   };
 
   const unsubscribeClickedWeek = clickedWeek.subscribe(week => {
@@ -58,6 +62,13 @@
       $newTimeSpan.category = event.target.value;
     }
   }
+
+  function handleCatBlur(event) {
+    if(!event.target.value.trim()) {
+      $newTimeSpan.category = $categories[0];
+      categoryInputType = 'select';
+    }
+  }
 </script>
 
 <div class="create-time-span">
@@ -89,17 +100,24 @@
     <p>
       4. Category:
       {#if categoryInputType === 'select'}
-        <select on:blur={handleCategoryChange}>
+        <select on:change={handleCategoryChange}>
           {#each $categories as category}
-            <option>{category.name}</option>
+            <option>{category}</option>
           {/each}
           <option value="$$createNew">Create new category...</option>
         </select>
       {:else}
-        <input bind:value={$newTimeSpan.category} bind:this={catInput}>
+        <input bind:value={$newTimeSpan.category} bind:this={catInput} on:blur={handleCatBlur}>
       {/if}
     </p>
-    <button on:click={createTimeSpan} disabled={!$newTimeSpan.name || !$newTimeSpan.category}>
+    <p>
+      5. Styling<br>
+      Background color: <input type="color" bind:value={$newTimeSpan.style.backgroundColor}><br>
+      Border color: <input type="color" bind:value={$newTimeSpan.style.borderColor}><br>
+      Border size: <input type="range" min="0" max="9" bind:value={$newTimeSpan.style.borderWidth}>
+    </p>
+
+    <button on:click={createTimeSpan} disabled={!$newTimeSpan.name?.trim() || !$newTimeSpan.category?.trim()}>
       Create time span
     </button>
   </div>

@@ -5,6 +5,7 @@
   export let week;
   let today = stringify(new Date());
   let classNames;
+  let style = '';
 
   function isMarked(appMode, newTimeSpan, currentWeek) {
 
@@ -35,10 +36,9 @@
 
   $: {
     const classMap = {
-      'is-past': $appMode === 'default' && $showStyles.past && week.endDate <= today,
-      'is-now': $appMode === 'default' && $showStyles.now && week.startDate <= today && week.endDate >= today,
+      'is-past': $showStyles.past && week.endDate <= today,
+      'is-now': $showStyles.now && week.startDate <= today && week.endDate >= today,
       'is-hovered': $currentWeek && week.startDate <= $currentWeek.endDate && week.endDate >= $currentWeek.startDate,
-      'is-marked': isMarked($appMode, $newTimeSpan, $currentWeek),
       'is-disabled': isDisabled($appMode, $newTimeSpan),
     };
 
@@ -57,7 +57,23 @@
     classNames = classCollection.join(' ');
   }
 
-  $: style = '';
+  $: {
+    style = '';
+
+    let styleSource = week.matchedTimeSpans[0]?.style;
+
+    if(isMarked($appMode, $newTimeSpan, $currentWeek)) {
+      styleSource = $newTimeSpan.style;
+    }
+
+    if(!styleSource) {
+      break $;
+    }
+
+    style += 'background-color: ' + styleSource.backgroundColor + ';';
+    style += 'border-color: ' + styleSource.borderColor + ';';
+    style += 'border-width: ' + styleSource.borderWidth + 'px;';
+  }
 </script>
 
 <div class={classNames}
@@ -73,9 +89,10 @@
 
   .week {
     border: 1px solid var(--black);
-    width: 1rem;
-    height: 1rem;
+    width: 1.2rem;
+    height: 1.2rem;
     border-radius: 50%;
+    box-sizing: border-box;
   }
 
   .is-past .week {
@@ -93,10 +110,6 @@
 
   .is-now .week {
     animation: blinkNow 1s infinite;
-  }
-
-  .is-marked .week {
-    background: #00c3ff;
   }
 
   .is-hovered .week {
