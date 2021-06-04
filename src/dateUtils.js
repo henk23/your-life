@@ -21,7 +21,7 @@ export function add(date, amount, unit) {
   }
 
   const newDate = clone(date);
-  newDate['set' + functionName](newDate['get' + functionName]() + amount);
+  newDate['setUTC' + functionName](newDate['getUTC' + functionName]() + amount);
   return newDate;
 }
 
