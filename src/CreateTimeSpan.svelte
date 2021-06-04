@@ -9,7 +9,13 @@
   let categoryInputType = 'select';
 
   $clickedWeek = null;
-  $newTimeSpan.category = $categories[0].name;
+  $newTimeSpan = {
+    startDate: null,
+    endDate: null,
+    name: '',
+    category: $categories[0].name,
+    style: {},
+  };
 
   const unsubscribeClickedWeek = clickedWeek.subscribe(week => {
     if(!week) {

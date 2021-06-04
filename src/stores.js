@@ -19,6 +19,13 @@ export const categories = derived(timeSpans, $timeSpans => {
     }
   }
 
+  if(!categories.length) {
+    categories.push({
+      name: 'Default',
+      isVisible: true,
+    });
+  }
+
   return categories;
 });
 

@@ -4,8 +4,6 @@
   import CurrentWeekDetails from './CurrentWeekDetails.svelte';
   import CreateTimeSpan from './CreateTimeSpan.svelte';
   import Calendar from './Calendar.svelte';
-
-
 </script>
 
 <main>
@@ -13,7 +11,7 @@
 
   <div>
     <input type="checkbox" bind:checked={$showStyles.past}> Show past
-    <input type="checkbox" bind:checked={$showStyles.now}> Show now
+    <input type="checkbox" bind:checked={$showStyles.now}> Blink current week
   </div>
 
   <DobPicker/>

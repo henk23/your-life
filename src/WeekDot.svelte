@@ -56,12 +56,14 @@
 
     classNames = classCollection.join(' ');
   }
+
+  $: style = '';
 </script>
 
 <div class={classNames}
      on:mouseenter={() => $currentWeek = week} on:mouseleave={() => $currentWeek = null}
      on:click={() => $clickedWeek = week}>
-  <div class="week"/>
+  <div class="week" style={style}/>
 </div>
 
 <style>
@@ -90,7 +92,7 @@
   }
 
   .is-now .week {
-    animation: blinkNow 2s infinite;
+    animation: blinkNow 1s infinite;
   }
 
   .is-marked .week {
