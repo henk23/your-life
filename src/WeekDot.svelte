@@ -81,7 +81,7 @@
   }
 
   .is-hovered .week {
-    outline: 2px solid var(--black);
+    box-shadow: 0 0 0 2px var(--black);
   }
 
   .is-disabled {
