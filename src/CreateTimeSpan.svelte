@@ -2,8 +2,7 @@
   import {tick, onDestroy} from 'svelte';
   import {appMode, timeSpans, categories, newTimeSpan, clickedWeek} from './stores';
   import {save} from './storageService';
-
-  let domNode;
+  import CloseIcon from './img/close.svg';
 
   let step = 'start';
   let nameInput;
@@ -76,17 +75,17 @@
     $newTimeSpan.style[key] = null;
   }
 
-  function close(event) {
-    if(!domNode.contains(event.target)) {
-      $appMode = 'default';
-    }
+  function close() {
+    $appMode = 'default';
   }
 </script>
 
-<svelte:body on:click={close}/>
-
-<div class="create-time-span" bind:this={domNode}>
+<div class="create-time-span">
   <div class="title">Create time span</div>
+
+  <a class="close" on:click={close}>
+    {@html CloseIcon}
+  </a>
 
   <div class="step" class:is-active={step === 'start'}>
     {#if !$newTimeSpan.startDate}
@@ -233,5 +232,12 @@
 
   .create-button {
     margin-top: 1rem;
+  }
+
+  .close {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.3rem;
+    cursor: pointer;
   }
 </style>

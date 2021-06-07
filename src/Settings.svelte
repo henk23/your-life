@@ -1,19 +1,20 @@
 <script>
   import {showStyles, showSettings} from './stores';
+  import CloseIcon from './img/close.svg';
 
   let domNode;
 
   function close(event) {
-    if(!domNode.contains(event.target)) {
-      $showSettings = false;
-    }
+    $showSettings = false;
   }
 </script>
 
-<svelte:body on:click={close}/>
-
 <div class="settings" bind:this={domNode}>
   <div class="title">Settings</div>
+
+  <a class="close" on:click={close}>
+    {@html CloseIcon}
+  </a>
 
   <div class="checkboxes">
     <label>
@@ -49,5 +50,12 @@
 
   .checkboxes label {
     display: block;
+  }
+
+  .close {
+    position: absolute;
+    right: 0.3rem;
+    top: 0.3rem;
+    cursor: pointer;
   }
 </style>
