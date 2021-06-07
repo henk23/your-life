@@ -1,6 +1,4 @@
 import {stringify} from './dateUtils';
-import {newTimeSpan} from './stores';
-import {week} from './WeekDot.svelte';
 
 const today = stringify(new Date());
 
