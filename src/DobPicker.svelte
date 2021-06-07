@@ -45,7 +45,7 @@
 </div>
 
 <style>
-    .dob-picker {
-        margin: 2rem 0;
-    }
+  .dob-picker {
+    margin: 0;
+  }
 </style>
