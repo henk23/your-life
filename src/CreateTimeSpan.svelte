@@ -113,9 +113,18 @@
     </div>
     <div class="substep">
       <div class="substep-head">5. Styling</div>
-      <input type="color" bind:value={$newTimeSpan.style['background-color']}> Background color<br>
-      <input type="color" bind:value={$newTimeSpan.style['border-color']}> Border color<br>
-      <input type="range" min="0" max="9" bind:value={$newTimeSpan.style['border-width']}> Border width
+      <div class="style-row">
+        <input type="color" bind:value={$newTimeSpan.style['background-color']} id="bg-color">
+        <label for="bg-color">Background color</label>
+      </div>
+      <div class="style-row">
+        <input type="color" bind:value={$newTimeSpan.style['border-color']} id="b-color">
+        <label for="b-color">Border color</label>
+      </div>
+      <div class="style-row">
+        <input type="range" min="0" max="9" bind:value={$newTimeSpan.style['border-width']} id="b-width">
+        <label for="b-width">Border width</label>
+      </div>
     </div>
 
     <button on:click={createTimeSpan} disabled={!$newTimeSpan.name?.trim() || !$newTimeSpan.category?.trim()}>
@@ -163,5 +172,16 @@
 
   input {
     vertical-align: middle;
+  }
+
+  .style-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+
+  .style-row input {
+    width: 6rem;
+    margin: 0 0.5rem 0 0;
   }
 </style>

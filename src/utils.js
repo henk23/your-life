@@ -45,7 +45,7 @@ export function makeStyleString(styleMap) {
       unit = 'px';
     }
 
-    style += styleMap[key] ? `${key}:${styleMap[key]}${unit};` : '';
+    style += styleMap[key] !== null ? `${key}:${styleMap[key]}${unit};` : '';
   }
 
   return style;
@@ -60,7 +60,7 @@ export function assembleStylesMap(week) {
 
   for(let span of week.matchedTimeSpans) {
     for(let key in stylesMap) {
-      if(span.style[key]) {
+      if(span.style[key] !== null) {
         stylesMap[key] = span.style[key];
       }
     }
