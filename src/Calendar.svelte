@@ -6,7 +6,7 @@
   let dateOfBirth;
   let allYears;
 
-  let today = stringify(new Date());
+  const today = stringify(new Date());
 
   $: {
     dateOfBirth = new Date($dobString);

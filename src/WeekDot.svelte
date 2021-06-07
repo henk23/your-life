@@ -1,45 +1,19 @@
 <script>
   import {appMode, currentWeek, showStyles, clickedWeek, newTimeSpan} from './stores';
   import {stringify} from './dateUtils';
+  import {isMarked, isDisabled} from './utils';
 
   export let week;
   let today = stringify(new Date());
   let classNames;
   let style = '';
 
-  function isMarked(appMode, newTimeSpan, currentWeek) {
-
-    // Mark only once the start date was clicked.
-    if(appMode !== 'create-time-span' || !newTimeSpan.startDate) {
-      return false;
-    }
-
-    let endDateCondition;
-
-    // Mark all hovered until end date is clicked
-    if(!newTimeSpan.endDate) {
-      endDateCondition = currentWeek && week.startDate < currentWeek.endDate;
-    } else {
-      endDateCondition = week.startDate < newTimeSpan.endDate;
-    }
-
-    return endDateCondition && week.endDate > newTimeSpan.startDate;
-  }
-
-  function isDisabled(appMode, newTimeSpan) {
-    if(appMode !== 'create-time-span' || !newTimeSpan.startDate || newTimeSpan.endDate) {
-      return false;
-    }
-
-    return week.endDate < newTimeSpan.startDate;
-  }
-
   $: {
     const classMap = {
       'is-past': $showStyles.past && week.endDate <= today,
       'is-now': $showStyles.now && week.startDate <= today && week.endDate >= today,
       'is-hovered': $currentWeek && week.startDate <= $currentWeek.endDate && week.endDate >= $currentWeek.startDate,
-      'is-disabled': isDisabled($appMode, $newTimeSpan),
+      'is-disabled': isDisabled($appMode, $newTimeSpan, week),
     };
 
     let classCollection = ['week-wrapper'];
@@ -58,21 +32,31 @@
   }
 
   $: {
+    const stylesMap = {
+      'background-color': null,
+      'border-color': null,
+      'border-width': null,
+    };
+
+    for(let span of week.matchedTimeSpans) {
+      for(let key in stylesMap) {
+        if(span.style[key]) {
+          stylesMap[key] = span.style[key];
+        }
+      }
+    }
+
     style = '';
-
-    let styleSource = week.matchedTimeSpans[0]?.style;
-
-    if(isMarked($appMode, $newTimeSpan, $currentWeek)) {
-      styleSource = $newTimeSpan.style;
+    for(let key in stylesMap) {
+      style += stylesMap[key] ? key.replace(/[A-Z]/, l => '-' + l.toLowerCase()) + ':' + stylesMap[key] + ';' : '';
     }
+  }
 
-    if(!styleSource) {
-      break $;
+  $: {
+    if(isMarked($appMode, $newTimeSpan, $currentWeek, week)) {
+      // TODO: Marked style...
+      style = 'background: #00c3ff;';
     }
-
-    style += 'background-color: ' + styleSource.backgroundColor + ';';
-    style += 'border-color: ' + styleSource.borderColor + ';';
-    style += 'border-width: ' + styleSource.borderWidth + 'px;';
   }
 </script>
 
@@ -96,7 +80,7 @@
   }
 
   .is-past .week {
-    background: var(--green-light);
+    background: var(--grey);
   }
 
   @keyframes blinkNow {
@@ -113,7 +97,7 @@
   }
 
   .is-hovered .week {
-    background: #00c3ff !important;
+    outline: 1px solid red;
   }
 
   .is-disabled {

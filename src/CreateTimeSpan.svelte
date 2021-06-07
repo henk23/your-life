@@ -15,9 +15,9 @@
     name: '',
     category: $categories[0],
     style: {
-      backgroundColor: '#00c3ff',
-      borderColor: '#333333',
-      borderWidth: 1,
+      'background-color': '#00c3ff',
+      'border-color': null,
+      'border-width': null,
     },
   };
 
@@ -76,29 +76,30 @@
 
   <div class="step" class:is-active={step === 'start'}>
     {#if !$newTimeSpan.startDate}
-      <p>1. Pick a start date from the calendar</p>
+      <div class="substep">1. Pick a start date from the calendar</div>
     {:else}
-      <p>1. Start: {$newTimeSpan.startDate}</p>
+      <div class="substep">1. Start: {$newTimeSpan.startDate}</div>
     {/if}
   </div>
 
   <div class="step" class:is-active={step === 'end'}>
-    <p>
+    <div class="substep">
       {#if !$newTimeSpan.endDate}
         2. Pick an end date or click
         <button on:click={() => $clickedWeek = {endDate: 'ongoing'}}>ongoing</button>
       {:else}
         2. End: {$newTimeSpan.endDate}
       {/if}
-    </p>
+    </div>
   </div>
 
   <div class="step" class:is-active={step === 'name'}>
-    <p>
-      3. Name: <input bind:value={$newTimeSpan.name} bind:this={nameInput}>
-    </p>
-    <p>
-      4. Category:
+    <div class="substep">
+      <div class="substep-head">3. Name</div>
+      <input bind:value={$newTimeSpan.name} bind:this={nameInput}>
+    </div>
+    <div class="substep">
+      <div class="substep-head">4. Category</div>
       {#if categoryInputType === 'select'}
         <select on:change={handleCategoryChange}>
           {#each $categories as category}
@@ -109,13 +110,13 @@
       {:else}
         <input bind:value={$newTimeSpan.category} bind:this={catInput} on:blur={handleCatBlur}>
       {/if}
-    </p>
-    <p>
-      5. Styling<br>
-      Background color: <input type="color" bind:value={$newTimeSpan.style.backgroundColor}><br>
-      Border color: <input type="color" bind:value={$newTimeSpan.style.borderColor}><br>
-      Border size: <input type="range" min="0" max="9" bind:value={$newTimeSpan.style.borderWidth}>
-    </p>
+    </div>
+    <div class="substep">
+      <div class="substep-head">5. Styling</div>
+      <input type="color" bind:value={$newTimeSpan.style['background-color']}> Background color<br>
+      <input type="color" bind:value={$newTimeSpan.style['border-color']}> Border color<br>
+      <input type="range" min="0" max="9" bind:value={$newTimeSpan.style['border-width']}> Border width
+    </div>
 
     <button on:click={createTimeSpan} disabled={!$newTimeSpan.name?.trim() || !$newTimeSpan.category?.trim()}>
       Create time span
@@ -150,5 +151,17 @@
   .step.is-active {
     pointer-events: all;
     opacity: 1;
+  }
+
+  .substep {
+    margin: 0.6rem 0;
+  }
+
+  .substep-head {
+    margin-bottom: 0.5rem;
+  }
+
+  input {
+    vertical-align: middle;
   }
 </style>

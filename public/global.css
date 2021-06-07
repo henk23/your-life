@@ -1,10 +1,12 @@
 :root {
-    --green-dark: #98ddca; /* #98ddca */
-    --green-light: #b4e68b; /* #d5ecc2 */
+    --green-dark: #98ddca;
+    --green-light: #b4e68b;
     --red-light: #ffd3b4;
     --red-dark: #ffaaa7;
     --black: #333333;
     --white: #ffffff;
+    --grey: #dddddd;
+    --sky: #00c3ff;
 }
 
 html, body {
