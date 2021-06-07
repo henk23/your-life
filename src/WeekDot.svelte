@@ -1,7 +1,7 @@
 <script>
   import {appMode, currentWeek, showStyles, clickedWeek, newTimeSpan} from './stores';
   import {stringify} from './dateUtils';
-  import {isMarked, isDisabled} from './utils';
+  import {isMarked, isDisabled, assembleStylesMap, makeStyleString} from './utils';
 
   export let week;
   let today = stringify(new Date());
@@ -32,30 +32,14 @@
   }
 
   $: {
-    const stylesMap = {
-      'background-color': null,
-      'border-color': null,
-      'border-width': null,
-    };
-
-    for(let span of week.matchedTimeSpans) {
-      for(let key in stylesMap) {
-        if(span.style[key]) {
-          stylesMap[key] = span.style[key];
-        }
-      }
-    }
-
-    style = '';
-    for(let key in stylesMap) {
-      style += stylesMap[key] ? key.replace(/[A-Z]/, l => '-' + l.toLowerCase()) + ':' + stylesMap[key] + ';' : '';
-    }
+    style = makeStyleString(assembleStylesMap(week));
   }
 
   $: {
     if(isMarked($appMode, $newTimeSpan, $currentWeek, week)) {
-      // TODO: Marked style...
-      style = 'background: #00c3ff;';
+      style = makeStyleString($newTimeSpan.style);
+    } else {
+      style = makeStyleString(assembleStylesMap(week));
     }
   }
 </script>

@@ -1,4 +1,6 @@
 import {stringify} from './dateUtils';
+import {newTimeSpan} from './stores';
+import {week} from './WeekDot.svelte';
 
 const today = stringify(new Date());
 
@@ -31,4 +33,38 @@ export function isDisabled(appMode, newTimeSpan, week) {
   }
 
   return week.endDate < newTimeSpan.startDate;
+}
+
+export function makeStyleString(styleMap) {
+  let style = '';
+
+  for(let key in styleMap) {
+    let unit = '';
+
+    if(['border-width'].includes(key)) {
+      unit = 'px';
+    }
+
+    style += styleMap[key] ? `${key}:${styleMap[key]}${unit};` : '';
+  }
+
+  return style;
+}
+
+export function assembleStylesMap(week) {
+  const stylesMap = {
+    'background-color': null,
+    'border-color': null,
+    'border-width': null,
+  };
+
+  for(let span of week.matchedTimeSpans) {
+    for(let key in stylesMap) {
+      if(span.style[key]) {
+        stylesMap[key] = span.style[key];
+      }
+    }
+  }
+
+  return stylesMap;
 }
