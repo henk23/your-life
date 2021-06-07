@@ -37,7 +37,7 @@
 
   $: {
     if(isMarked($appMode, $newTimeSpan, $currentWeek, week)) {
-      style = makeStyleString($newTimeSpan.style);
+      style = makeStyleString(assembleStylesMap(week, $newTimeSpan.style));
     } else {
       style = makeStyleString(assembleStylesMap(week));
     }

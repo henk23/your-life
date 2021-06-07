@@ -51,7 +51,7 @@ export function makeStyleString(styleMap) {
   return style;
 }
 
-export function assembleStylesMap(week) {
+export function assembleStylesMap(week, newStylesMap = null) {
   const stylesMap = {
     'background-color': null,
     'border-color': null,
@@ -62,6 +62,14 @@ export function assembleStylesMap(week) {
     for(let key in stylesMap) {
       if(span.style[key] !== null) {
         stylesMap[key] = span.style[key];
+      }
+    }
+  }
+
+  if(newStylesMap) {
+    for(let key in newStylesMap) {
+      if(newStylesMap[key] !== null) {
+        stylesMap[key] = newStylesMap[key];
       }
     }
   }

@@ -69,6 +69,10 @@
       categoryInputType = 'select';
     }
   }
+
+  function setNull(key) {
+    $newTimeSpan.style[key] = null;
+  }
 </script>
 
 <div class="create-time-span">
@@ -114,16 +118,43 @@
     <div class="substep">
       <div class="substep-head">5. Styling</div>
       <div class="style-row">
-        <input type="color" bind:value={$newTimeSpan.style['background-color']} id="bg-color">
-        <label for="bg-color">Background color</label>
+        {#if $newTimeSpan.style['background-color'] !== null}
+          <input type="color" bind:value={$newTimeSpan.style['background-color']} id="bg-color">
+          <div>
+            <label for="bg-color">Background color</label>
+            <a href="#" on:click|preventDefault={() => setNull('background-color')}>unset</a>
+          </div>
+        {:else}
+          <a href="#" on:click|preventDefault={() => $newTimeSpan.style['background-color'] = '#00c3ff'}>
+            Set background color
+          </a>
+        {/if}
       </div>
       <div class="style-row">
-        <input type="color" bind:value={$newTimeSpan.style['border-color']} id="b-color">
-        <label for="b-color">Border color</label>
+        {#if $newTimeSpan.style['border-color'] !== null}
+          <input type="color" bind:value={$newTimeSpan.style['border-color']} id="b-color">
+          <div>
+            <label for="b-color">Border color</label>
+            <a href="#" on:click|preventDefault={() => setNull('border-color')}>unset</a>
+          </div>
+        {:else}
+          <a href="#" on:click|preventDefault={() => $newTimeSpan.style['border-color'] = '#333333'}>
+            Set border color
+          </a>
+        {/if}
       </div>
       <div class="style-row">
-        <input type="range" min="0" max="9" bind:value={$newTimeSpan.style['border-width']} id="b-width">
-        <label for="b-width">Border width</label>
+        {#if $newTimeSpan.style['border-width'] !== null}
+          <input type="range" min="0" max="9" bind:value={$newTimeSpan.style['border-width']} id="b-width">
+          <div>
+            <label for="b-width">Border width</label>
+            <a href="#" on:click|preventDefault={() => setNull('border-width')}>unset</a>
+          </div>
+        {:else}
+          <a href="#" on:click|preventDefault={() => $newTimeSpan.style['border-width'] = 1}>
+            Set border width
+          </a>
+        {/if}
       </div>
     </div>
 
@@ -183,5 +214,9 @@
   .style-row input {
     width: 6rem;
     margin: 0 0.5rem 0 0;
+  }
+
+  .style-row a {
+    font-size: 0.8rem;
   }
 </style>
