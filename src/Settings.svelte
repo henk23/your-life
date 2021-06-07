@@ -1,11 +1,16 @@
 <script>
-  import {showStyles, showSettings} from './stores';
+  import {settings, showSettings} from './stores';
   import CloseIcon from './img/close.svg';
+  import {save} from './storageService';
 
   let domNode;
 
   function close(event) {
     $showSettings = false;
+  }
+
+  $: {
+    save('settings', $settings);
   }
 </script>
 
@@ -18,10 +23,10 @@
 
   <div class="checkboxes">
     <label>
-      <input type="checkbox" bind:checked={$showStyles.past}> Show past
+      <input type="checkbox" bind:checked={$settings.showPast}> Show past
     </label>
     <label>
-      <input type="checkbox" bind:checked={$showStyles.now}> Blink current week
+      <input type="checkbox" bind:checked={$settings.blinkNow}> Blink current week
     </label>
   </div>
 </div>

@@ -24,9 +24,9 @@ export const categories = derived(timeSpans, $timeSpans => {
   return [...new Set(categories)];
 });
 
-export const showStyles = writable({
-  past: true,
-  now: true,
+export const settings = writable(load('settings') || {
+  showPast: true,
+  blinkNow: true,
 });
 
 export const newTimeSpan = writable({

@@ -1,5 +1,5 @@
 <script>
-  import {appMode, currentWeek, showStyles, clickedWeek, newTimeSpan} from './stores';
+  import {appMode, currentWeek, settings, clickedWeek, newTimeSpan} from './stores';
   import {stringify} from './dateUtils';
   import {isMarked, isDisabled, assembleStylesMap, makeStyleString} from './utils';
 
@@ -10,8 +10,8 @@
 
   $: {
     const classMap = {
-      'is-past': $showStyles.past && week.endDate <= today,
-      'is-now': $showStyles.now && week.startDate <= today && week.endDate >= today,
+      'is-past': $settings.showPast && week.endDate <= today,
+      'is-now': $settings.blinkNow && week.startDate <= today && week.endDate >= today,
       'is-hovered': $currentWeek && week.startDate <= $currentWeek.endDate && week.endDate >= $currentWeek.startDate,
       'is-disabled': isDisabled($appMode, $newTimeSpan, week),
     };
