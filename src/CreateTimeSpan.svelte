@@ -3,6 +3,8 @@
   import {appMode, timeSpans, categories, newTimeSpan, clickedWeek} from './stores';
   import {save} from './storageService';
 
+  let domNode;
+
   let step = 'start';
   let nameInput;
   let catInput;
@@ -73,37 +75,45 @@
   function setNull(key) {
     $newTimeSpan.style[key] = null;
   }
+
+  function close(event) {
+    if(!domNode.contains(event.target)) {
+      $appMode = 'default';
+    }
+  }
 </script>
 
-<div class="create-time-span">
+<svelte:body on:click={close}/>
+
+<div class="create-time-span" bind:this={domNode}>
   <div class="title">Create time span</div>
 
   <div class="step" class:is-active={step === 'start'}>
     {#if !$newTimeSpan.startDate}
-      <div class="substep">1. Pick a start date from the calendar</div>
+      <div class="substep">Pick a start date from the calendar</div>
     {:else}
-      <div class="substep">1. Start: {$newTimeSpan.startDate}</div>
+      <div class="substep">Start: {$newTimeSpan.startDate}</div>
     {/if}
   </div>
 
   <div class="step" class:is-active={step === 'end'}>
     <div class="substep">
       {#if !$newTimeSpan.endDate}
-        2. Pick an end date or click
+        Pick an end date or click
         <button on:click={() => $clickedWeek = {endDate: 'ongoing'}}>ongoing</button>
       {:else}
-        2. End: {$newTimeSpan.endDate}
+        End: {$newTimeSpan.endDate}
       {/if}
     </div>
   </div>
 
   <div class="step" class:is-active={step === 'name'}>
     <div class="substep">
-      <div class="substep-head">3. Name</div>
+      <div class="substep-head">Name</div>
       <input bind:value={$newTimeSpan.name} bind:this={nameInput}>
     </div>
     <div class="substep">
-      <div class="substep-head">4. Category</div>
+      <div class="substep-head">Category</div>
       {#if categoryInputType === 'select'}
         <select on:change={handleCategoryChange}>
           {#each $categories as category}
@@ -116,7 +126,7 @@
       {/if}
     </div>
     <div class="substep">
-      <div class="substep-head">5. Styling</div>
+      <div class="substep-head">Styling</div>
       <div class="style-row">
         {#if $newTimeSpan.style['background-color'] !== null}
           <input type="color" bind:value={$newTimeSpan.style['background-color']} id="bg-color">
@@ -158,7 +168,8 @@
       </div>
     </div>
 
-    <button on:click={createTimeSpan} disabled={!$newTimeSpan.name?.trim() || !$newTimeSpan.category?.trim()}>
+    <button on:click={createTimeSpan} class="create-button"
+            disabled={!$newTimeSpan.name?.trim() || !$newTimeSpan.category?.trim()}>
       Create time span
     </button>
   </div>
@@ -218,5 +229,9 @@
 
   .style-row a {
     font-size: 0.8rem;
+  }
+
+  .create-button {
+    margin-top: 1rem;
   }
 </style>

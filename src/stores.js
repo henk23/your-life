@@ -2,6 +2,7 @@ import {writable, derived} from 'svelte/store';
 import {load} from './storageService';
 
 export const appMode = writable('default');
+export const showSettings = writable(false);
 export const currentWeek = writable(null);
 export const clickedWeek = writable(null);
 export const dobString = writable(load('dateOfBirth') || '1970-01-01');
