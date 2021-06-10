@@ -1,5 +1,5 @@
 <script>
-  import {appMode, currentWeek, settings, clickedWeek, newTimeSpan} from './stores';
+  import {appMode, currentWeek, settings, clickedWeek, timeSpans, newTimeSpan} from './stores';
   import {isMarked, isDisabled, assembleStylesMap, makeStyleString} from './utils';
   import {today} from './dateUtils';
 
@@ -31,6 +31,7 @@
   }
 
   $: {
+    $timeSpans; // To trigger updates in edit mode
     style = makeStyleString(assembleStylesMap(week));
   }
 

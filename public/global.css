@@ -36,6 +36,7 @@ button {
 
 button:hover {
   background-color: var(--grey-dark);
+  border: 1px solid var(--grey-dark);
 }
 
 select {
