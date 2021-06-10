@@ -17,8 +17,8 @@
 
 {#if !hidePrivacyNotice}
   <div class="prv-notice">
-    This app does not collect or store any personal data.
-    Everything will be saved in your browserʼs memory.<br>
+    I do not collect or store any of your personal data.
+    Everything will be saved in your browser’s memory for your eyes only.<br>
     <strong>If you delete your cookies, all will be gone.</strong><br>
     <button on:click={removePrivacyNotice}>Ok</button>
   </div>

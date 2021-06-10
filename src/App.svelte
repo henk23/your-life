@@ -13,6 +13,14 @@
 <main>
   <h1 class="title">YOUR LIFE</h1>
 
+  <p class="info">
+    Wonder what this is? Look at
+    <a href="https://waitbutwhy.com/2014/05/life-weeks.html" target="_blank">this blog post by Wait But Why</a>
+    and
+    <a href="https://www.youtube.com/watch?v=JXeJANDKwDc" target="_blank">this video by Kurzgesagt</a>.
+    I'm not affiliated with either.
+  </p>
+
   <DobPicker/>
 
   <div class="create-button-wrapper">
@@ -65,6 +73,13 @@
     text-transform: uppercase;
     font-size: 4em;
     font-weight: 100;
+    margin-bottom: 0;
+  }
+
+  .info {
+    max-width: 20rem;
+    margin: 1rem auto 1.5rem;
+    line-height: 1.5;
   }
 
   .create-button-wrapper {
