@@ -1,5 +1,5 @@
 <script>
-  import {appMode, timeSpans} from './stores';
+  import {appMode, timeSpans, editIdx} from './stores';
   import {save} from './storageService';
   import SpanDetail from './SpanDetail.svelte';
 
@@ -7,10 +7,6 @@
   import EditIcon from './img/edit.svg';
   import UpIcon from './img/arrow-up.svg';
   import DownIcon from './img/arrow-down.svg';
-
-  function edit(idx) {
-    console.log('edit', idx);
-  }
 
   function move(idx, direction) {
     [$timeSpans[idx + direction], $timeSpans[idx]] = [$timeSpans[idx], $timeSpans[idx + direction]];
@@ -29,11 +25,11 @@
     {@html CloseIcon}
   </a>
 
-  <div class="spans-list">
+  <div class="spans-list" class:is-disabled={$editIdx !== null}>
     {#each $timeSpans as timeSpan, idx}
       <SpanDetail timeSpan={timeSpan}/>
       <div class="buttons">
-        <button on:click={() => edit(idx)}>{@html EditIcon}</button>
+        <button on:click={() => $editIdx = idx}>{@html EditIcon}</button>
         {#if idx > 0}
           <button on:click={() => move(idx, -1)}>{@html UpIcon}</button>
         {/if}
@@ -58,6 +54,11 @@
     box-shadow: 0 0 2px 0 var(--black);
     max-height: calc(100vh - 4rem);
     overflow: auto;
+  }
+
+  .is-disabled {
+    pointer-events: none;
+    opacity: 0.5;
   }
 
   .title {
@@ -89,6 +90,6 @@
   }
 
   .buttons :global(svg) {
-    max-height: 1em;
+    height: 1em;
   }
 </style>

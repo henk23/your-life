@@ -1,11 +1,12 @@
 <script>
-  import {appMode, timeSpans, showSettings} from './stores';
+  import {appMode, timeSpans, showSettings, editIdx} from './stores';
   import DobPicker from './DobPicker.svelte';
   import CurrentWeekDetails from './CurrentWeekDetails.svelte';
   import CreateTimeSpan from './CreateTimeSpan.svelte';
   import Calendar from './Calendar.svelte';
   import Settings from './Settings.svelte';
   import EditTimeSpans from './EditTimeSpans.svelte';
+  import EditTimeSpan from './EditTimeSpan.svelte';
 </script>
 
 <main>
@@ -43,6 +44,10 @@
 
 {#if $appMode === 'edit-time-spans'}
   <EditTimeSpans/>
+{/if}
+
+{#if $editIdx !== null}
+  <EditTimeSpan/>
 {/if}
 
 <style>

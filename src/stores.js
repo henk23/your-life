@@ -8,6 +8,7 @@ export const currentWeek = writable(null);
 export const clickedWeek = writable(null);
 export const dobString = writable(load('dateOfBirth') || today);
 export const timeSpans = writable(load('timeSpans') || []);
+export const editIdx = writable(null);
 
 export const categories = derived(timeSpans, $timeSpans => {
   const categories = [];
