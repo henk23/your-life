@@ -2,6 +2,7 @@
   import {tick} from 'svelte';
   import {timeSpans, editIdx, categories, dobString} from './stores';
   import {save, load} from './storageService';
+  import {today} from './dateUtils';
   import CloseIcon from './img/close.svg';
   import DatePicker from './DatePicker.svelte';
 
@@ -45,9 +46,7 @@
 <div class="edit-time-span">
   <div class="title">Change time span</div>
 
-  <a class="close" on:click={discard}>
-    {@html CloseIcon}
-  </a>
+  <a class="close" on:click={discard}>{@html CloseIcon}</a>
 
   <div class="step">
     <div class="substep">
@@ -59,7 +58,12 @@
   <div class="step">
     <div class="substep">
       <div class="substep-head">End</div>
-      <DatePicker bind:dateString={$timeSpans[$editIdx].endDate} startYear={parseInt($dobString.substr(0, 4))}/>
+      {#if $timeSpans[$editIdx].endDate === 'ongoing'}
+        ongoing <a href="#" on:click|preventDefault={() => $timeSpans[$editIdx].endDate = today} class="small-link">set a date</a>
+      {:else}
+        <DatePicker bind:dateString={$timeSpans[$editIdx].endDate} startYear={parseInt($dobString.substr(0, 4))}/><br>
+        <a href="#" on:click|preventDefault={() => $timeSpans[$editIdx].endDate = 'ongoing'} class="small-link">set to ongoing</a>
+      {/if}
     </div>
   </div>
 
@@ -180,7 +184,7 @@
     margin: 0 0.5rem 0 0;
   }
 
-  .style-row a {
+  .style-row a, .small-link {
     font-size: 0.8rem;
   }
 
