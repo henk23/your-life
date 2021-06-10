@@ -1,3 +1,5 @@
+export const today = stringify(new Date());
+
 export function clone(date) {
   return new Date(date.getTime());
 }

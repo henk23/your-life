@@ -1,10 +1,12 @@
 <script>
-  import {appMode, showSettings} from './stores';
+  import {appMode, timeSpans, showSettings, editIdx} from './stores';
   import DobPicker from './DobPicker.svelte';
   import CurrentWeekDetails from './CurrentWeekDetails.svelte';
   import CreateTimeSpan from './CreateTimeSpan.svelte';
   import Calendar from './Calendar.svelte';
   import Settings from './Settings.svelte';
+  import EditTimeSpans from './EditTimeSpans.svelte';
+  import EditTimeSpan from './EditTimeSpan.svelte';
 </script>
 
 <main>
@@ -13,7 +15,14 @@
   <DobPicker/>
 
   <div class="create-button-wrapper">
-    <button on:click|stopPropagation={() => $appMode = 'create-time-span'}>Create time span</button>
+    <div>
+      <button on:click|stopPropagation={() => $appMode = 'create-time-span'}>Create time span</button>
+    </div>
+    {#if $timeSpans.length}
+      <div>
+        <button on:click|stopPropagation={() => $appMode = 'edit-time-spans'}>Edit time spans</button>
+      </div>
+    {/if}
   </div>
 
   <div class="settings-button-wrapper">
@@ -31,6 +40,14 @@
 
 {#if $appMode === 'create-time-span'}
   <CreateTimeSpan/>
+{/if}
+
+{#if $appMode === 'edit-time-spans'}
+  <EditTimeSpans/>
+{/if}
+
+{#if $editIdx !== null}
+  <EditTimeSpan/>
 {/if}
 
 <style>
@@ -51,6 +68,11 @@
     position: fixed;
     left: 1.2rem;
     top: 1.2rem;
+    text-align: left;
+  }
+
+  .create-button-wrapper button {
+    margin-bottom: 1rem;
   }
 
   .settings-button-wrapper {

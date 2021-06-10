@@ -1,12 +1,10 @@
 <script>
   import WeekDot from './WeekDot.svelte';
-  import {generateYears, stringify} from './dateUtils';
+  import {generateYears, today} from './dateUtils';
   import {dobString, timeSpans} from './stores';
 
   let dateOfBirth;
   let allYears;
-
-  const today = stringify(new Date());
 
   $: {
     dateOfBirth = new Date($dobString);
