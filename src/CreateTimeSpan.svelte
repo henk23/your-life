@@ -177,7 +177,7 @@
     top: 1rem;
     border: 1px solid var(--black);
     padding: 1rem;
-    min-width: 12rem;
+    width: 18rem;
     background: white;
     border-radius: 0.3rem;
     box-shadow: 0 0 2px 0 var(--black);

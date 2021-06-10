@@ -11,7 +11,9 @@
     {#if $currentWeek.matchedTimeSpans?.length}
       <hr class="spacer">
       {#each $currentWeek.matchedTimeSpans as timeSpan}
-        <SpanDetail timeSpan={timeSpan}/>
+        <div class="detail-wrapper">
+          <SpanDetail timeSpan={timeSpan}/>
+        </div>
       {/each}
     {/if}
   </div>
@@ -40,5 +42,9 @@
     height: 0.3rem;
     background: var(--grey);
     margin: 1rem -1rem;
+  }
+
+  .detail-wrapper:not(:first-child) {
+    margin-top: 1rem;
   }
 </style>
