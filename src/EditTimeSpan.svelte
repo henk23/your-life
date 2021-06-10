@@ -157,10 +157,6 @@
     margin: 0.6rem 0;
   }
 
-  .ongoing {
-    padding: 0.2rem 1rem;
-  }
-
   .substep-head {
     margin-bottom: 0.5rem;
   }
