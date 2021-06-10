@@ -1,8 +1,9 @@
 <script>
   import {tick} from 'svelte';
-  import {timeSpans, editIdx, categories} from './stores';
+  import {timeSpans, editIdx, categories, dobString} from './stores';
   import {save, load} from './storageService';
   import CloseIcon from './img/close.svg';
+  import DatePicker from './DatePicker.svelte';
 
   let nameInput;
   let catInput;
@@ -50,13 +51,15 @@
 
   <div class="step">
     <div class="substep">
-      TODO: Select Start: {$timeSpans[$editIdx].startDate}
+      <div class="substep-head">Start</div>
+      <DatePicker bind:dateString={$timeSpans[$editIdx].startDate} startYear={parseInt($dobString.substr(0, 4))}/>
     </div>
   </div>
 
   <div class="step">
     <div class="substep">
-        TODO: Select End: {$timeSpans[$editIdx].endDate}
+      <div class="substep-head">End</div>
+      <DatePicker bind:dateString={$timeSpans[$editIdx].endDate} startYear={parseInt($dobString.substr(0, 4))}/>
     </div>
   </div>
 
@@ -68,7 +71,7 @@
     <div class="substep">
       <label class="substep-head" for="category">Category</label>
       {#if categoryInputType === 'select'}
-        <select on:change={handleCategoryChange} id="category">
+        <select on:change={handleCategoryChange} value={$timeSpans[$editIdx].category} id="category">
           {#each $categories as category}
             <option>{category}</option>
           {/each}
