@@ -5,11 +5,25 @@
 
   import CloseIcon from './img/close.svg';
   import EditIcon from './img/edit.svg';
+  import TrashIcon from './img/trash.svg';
   import UpIcon from './img/arrow-up.svg';
   import DownIcon from './img/arrow-down.svg';
 
   function move(idx, direction) {
     [$timeSpans[idx + direction], $timeSpans[idx]] = [$timeSpans[idx], $timeSpans[idx + direction]];
+    save('timeSpans', $timeSpans);
+  }
+
+  function remove(idx) {
+    if(!window.confirm('Really delete?')) {
+      return;
+    }
+
+    $timeSpans = [
+      ...$timeSpans.slice(0, idx),
+      ...$timeSpans.slice(idx + 1),
+    ];
+
     save('timeSpans', $timeSpans);
   }
 </script>
@@ -31,6 +45,7 @@
         <SpanDetail timeSpan={timeSpan}/>
         <div class="buttons">
           <button on:click={() => $editIdx = idx}>{@html EditIcon}</button>
+          <button on:click={() => remove(idx)}>{@html TrashIcon}</button>
           {#if idx > 0}
             <button on:click={() => move(idx, -1)}>{@html UpIcon}</button>
           {/if}
@@ -100,5 +115,6 @@
 
   .buttons :global(svg) {
     height: 1em;
+    width: 1em;
   }
 </style>
