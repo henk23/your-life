@@ -74,16 +74,12 @@
   function setNull(key) {
     $newTimeSpan.style[key] = null;
   }
-
-  function close() {
-    $appMode = 'default';
-  }
 </script>
 
 <div class="create-time-span">
   <div class="title">Create time span</div>
 
-  <a class="close" on:click={close}>
+  <a class="close" on:click={() => $appMode = 'default'}>
     {@html CloseIcon}
   </a>
 
@@ -99,7 +95,7 @@
     <div class="substep">
       {#if !$newTimeSpan.endDate}
         Pick an end date or click
-        <button on:click={() => $clickedWeek = {endDate: 'ongoing'}}>ongoing</button>
+        <button on:click={() => $clickedWeek = {endDate: 'ongoing'}} class="ongoing">ongoing</button>
       {:else}
         End: {$newTimeSpan.endDate}
       {/if}
@@ -147,7 +143,7 @@
             <a href="#" on:click|preventDefault={() => setNull('border-color')}>unset</a>
           </div>
         {:else}
-          <a href="#" on:click|preventDefault={() => $newTimeSpan.style['border-color'] = '#333333'}>
+          <a href="#" on:click|preventDefault={() => $newTimeSpan.style['border-color'] = '#000000'}>
             Set border color
           </a>
         {/if}
@@ -205,6 +201,10 @@
 
   .substep {
     margin: 0.6rem 0;
+  }
+
+  .ongoing {
+    padding: 0.2rem 1rem;
   }
 
   .substep-head {
