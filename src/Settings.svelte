@@ -40,13 +40,13 @@
     padding: 1rem;
     min-width: 12rem;
     background: white;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     box-shadow: 0 0 2px 0 var(--black);
   }
 
   .title {
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-weight: 900;
+    text-transform: uppercase;
   }
 
   .checkboxes {

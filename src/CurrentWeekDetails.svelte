@@ -1,19 +1,17 @@
 <script>
   import {currentWeek} from './stores';
+  import SpanDetail from './SpanDetail.svelte';
 </script>
 
 {#if $currentWeek}
   <div class="current-week-details">
-    <strong>Year {$currentWeek.age}, Week {$currentWeek.weekNumber}</strong><br>
+    <strong class="week">Age {$currentWeek.age}, Week {$currentWeek.weekNumber}</strong><br>
     {$currentWeek.startDate} - {$currentWeek.endDate}
 
     {#if $currentWeek.matchedTimeSpans?.length}
       <hr class="spacer">
       {#each $currentWeek.matchedTimeSpans as timeSpan}
-        <p class="span">
-          <strong>{timeSpan.name} ({timeSpan.category})</strong><br>
-          {timeSpan.startDate} - {timeSpan.endDate}
-        </p>
+        <SpanDetail timeSpan={timeSpan}/>
       {/each}
     {/if}
   </div>
@@ -26,19 +24,21 @@
     top: 1rem;
     border: 1px solid var(--black);
     padding: 1rem;
-    min-width: 12rem;
-    font-size: 0.8rem;
+    width: 16rem;
     background: var(--white);
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     box-shadow: 0 0 2px 0 var(--black);
   }
 
-  .spacer {
-    margin: 1rem 0;
+  .week {
+    font-weight: 900;
+    text-transform: uppercase;
   }
 
-  .span {
-    margin-top: 1rem;
-    margin-bottom: 0;
+  .spacer {
+    border: 0;
+    height: 0.3rem;
+    background: var(--grey);
+    margin: 1rem -1rem;
   }
 </style>

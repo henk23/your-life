@@ -108,20 +108,20 @@
 
   <div class="step" class:is-active={step === 'name'}>
     <div class="substep">
-      <div class="substep-head">Name</div>
-      <input bind:value={$newTimeSpan.name} bind:this={nameInput}>
+      <label class="substep-head" for="name">Name</label>
+      <input bind:value={$newTimeSpan.name} bind:this={nameInput} id="name">
     </div>
     <div class="substep">
-      <div class="substep-head">Category</div>
+      <label class="substep-head" for="category">Category</label>
       {#if categoryInputType === 'select'}
-        <select on:change={handleCategoryChange}>
+        <select on:change={handleCategoryChange} id="category">
           {#each $categories as category}
             <option>{category}</option>
           {/each}
           <option value="$$createNew">Create new category...</option>
         </select>
       {:else}
-        <input bind:value={$newTimeSpan.category} bind:this={catInput} on:blur={handleCatBlur}>
+        <input bind:value={$newTimeSpan.category} bind:this={catInput} on:blur={handleCatBlur} id="category">
       {/if}
     </div>
     <div class="substep">
@@ -183,13 +183,13 @@
     padding: 1rem;
     min-width: 12rem;
     background: white;
-    border-radius: 0.5rem;
+    border-radius: 0.3rem;
     box-shadow: 0 0 2px 0 var(--black);
   }
 
   .title {
-    font-size: 0.8rem;
-    font-weight: bold;
+    font-weight: 900;
+    text-transform: uppercase;
   }
 
   .step {
@@ -209,6 +209,10 @@
 
   .substep-head {
     margin-bottom: 0.5rem;
+  }
+
+  label.substep-head {
+    display: block;
   }
 
   input {
