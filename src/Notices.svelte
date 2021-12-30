@@ -53,7 +53,7 @@
       So thank you! I'm hoping you have a good time keeping track of your life!
     </p>
     <p>
-      I decided to implement <strong>two litte updates:</strong>
+      I decided to implement <strong>two little updates:</strong>
     </p>
     <p>
       You can now <strong>import and export</strong> your data via the settings menu.
