@@ -14,6 +14,7 @@
     startDate: null,
     endDate: null,
     name: '',
+    description: '',
     category: $categories[0],
     style: {
       'background-color': '#00c3ff',
@@ -106,6 +107,10 @@
     <div class="substep">
       <label class="substep-head" for="name">Name</label>
       <input bind:value={$newTimeSpan.name} bind:this={nameInput} id="name">
+    </div>
+    <div class="substep">
+      <label class="substep-head" for="description">Description</label>
+      <textarea bind:value={$newTimeSpan.description} id="description" rows="3"></textarea>
     </div>
     <div class="substep">
       <label class="substep-head" for="category">Category</label>
@@ -209,6 +214,9 @@
 
   .substep-head {
     margin-bottom: 0.5rem;
+    font-weight: 600;
+    font-size: 0.8rem;
+    text-transform: uppercase;
   }
 
   label.substep-head {
@@ -217,6 +225,17 @@
 
   input {
     vertical-align: middle;
+  }
+
+  #name, #description {
+    width: 15rem;
+  }
+
+  #description {
+    resize: vertical;
+    font-family: inherit;
+    font-size: 0.8rem;
+    line-height: 1.2;
   }
 
   .style-row {

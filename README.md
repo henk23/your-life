@@ -27,3 +27,7 @@ npm run build
 ```
 
 You can run the newly built app with `npm run start`. This uses [sirv](https://github.com/lukeed/sirv).
+
+## Deployment
+
+Merge changes into branch `pages-build`, run `npm run pages` and push.

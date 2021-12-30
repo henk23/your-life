@@ -35,6 +35,7 @@ export const newTimeSpan = writable({
   startDate: null,
   endDate: null,
   name: '',
+  description: '',
   category: '',
   style: {},
 });
