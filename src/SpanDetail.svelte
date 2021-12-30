@@ -12,14 +12,21 @@
     <div class="category">{timeSpan.category}</div>
     <strong>{timeSpan.name}</strong><br>
     {timeSpan.startDate} - {timeSpan.endDate}
+    {#if timeSpan.description}
+      <div class="description">{timeSpan.description}</div>
+    {/if}
   </div>
 </div>
 
 <style>
   .span {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     font-size: 0.8rem;
+  }
+
+  .dot-wrapper {
+    margin-top: 0.5rem;
   }
 
   .dot {
@@ -29,5 +36,9 @@
     border-radius: 50%;
     box-sizing: border-box;
     margin-right: 0.4rem;
+  }
+
+  .description {
+    white-space: pre-wrap;
   }
 </style>
