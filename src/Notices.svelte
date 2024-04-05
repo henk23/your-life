@@ -5,7 +5,7 @@
   let hidePrivacyNotice = load('hidePrivacyNotice');
   let hideUpdatesUntil = load('hideUpdatesUntil');
 
-  let updateDate = '2021-12-30';
+  let updateDate = '2024-04-05';
   let isUpdateVisible = !hideUpdatesUntil || hideUpdatesUntil < updateDate;
 
   function removeMobileNotice() {
@@ -45,23 +45,16 @@
   <div class="update-notice">
     <div class="update-head">Update {updateDate}</div>
     <p>
-      Hey you!
+      Hey!
     </p>
     <p>
-      It's been over 6 months since this app was launched and people still seem to be using it,
-      which makes me really happy. :)
-      So thank you! I'm hoping you have a good time keeping track of your life!
+      Thanks for still using my app after all these years. :)
+      I'm hoping you have a good time keeping track of your life!
     </p>
     <p>
-      I decided to implement <strong>two little updates:</strong>
-    </p>
-    <p>
-      You can now <strong>import and export</strong> your data via the settings menu.
-      This way you can easily backup everything and switch to another browser or computer.
-    </p>
-    <p>
-      Also, for each time span, you can now add a short <strong>description</strong> which was a feature request
-      I received multiple times.
+      This little update just includes some internal technical changes and updates
+      of dependencies.<br>
+      I also got rid of the visitor counter "plausible".
     </p>
     <p>
       For feedback, write me an email to mail (at) heiko-salmon (dot) de
