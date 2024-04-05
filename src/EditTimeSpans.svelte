@@ -3,11 +3,11 @@
   import {save} from './storageService';
   import SpanDetail from './SpanDetail.svelte';
 
-  import CloseIcon from './img/close.svg';
-  import EditIcon from './img/edit.svg';
-  import TrashIcon from './img/trash.svg';
-  import UpIcon from './img/arrow-up.svg';
-  import DownIcon from './img/arrow-down.svg';
+  import CloseIcon from './img/close.svg?raw';
+  import EditIcon from './img/edit.svg?raw';
+  import TrashIcon from './img/trash.svg?raw';
+  import UpIcon from './img/arrow-up.svg?raw';
+  import DownIcon from './img/arrow-down.svg?raw';
 
   function move(idx, direction) {
     [$timeSpans[idx + direction], $timeSpans[idx]] = [$timeSpans[idx], $timeSpans[idx + direction]];

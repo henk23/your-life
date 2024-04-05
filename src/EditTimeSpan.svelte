@@ -3,7 +3,7 @@
   import {timeSpans, editIdx, categories, dobString} from './stores';
   import {save, load} from './storageService';
   import {today} from './dateUtils';
-  import CloseIcon from './img/close.svg';
+  import CloseIcon from './img/close.svg?raw';
   import DatePicker from './DatePicker.svelte';
 
   let nameInput;

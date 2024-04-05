@@ -1,7 +1,7 @@
 <script>
   import { onMount } from 'svelte';
   import { settings, showSettings } from './stores';
-  import CloseIcon from './img/close.svg';
+  import CloseIcon from './img/close.svg?raw';
   import { save, load } from './storageService';
 
   let domNode;
@@ -80,14 +80,18 @@
     </label>
   </div>
 
-  <div class="title">Import/Export</div>
+  <div class="title">Export</div>
 
   <div class="impex">
     <p class="small">Export your data to a .json file</p>
     <button on:click={exportFile}>
       Export to file
     </button>
+  </div>
 
+  <div class="title">Import</div>
+
+  <div class="impex">
     <p class="small">
       Import your data from a previously exported .json file
     </p>

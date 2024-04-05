@@ -2,7 +2,7 @@
   import {tick, onDestroy} from 'svelte';
   import {appMode, timeSpans, categories, newTimeSpan, clickedWeek} from './stores';
   import {save} from './storageService';
-  import CloseIcon from './img/close.svg';
+  import CloseIcon from './img/close.svg?raw';
 
   let step = 'start';
   let nameInput;
